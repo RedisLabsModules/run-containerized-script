@@ -28,7 +28,7 @@ runs:
       run: ln -fs ${{ env.action_path }}/.. .github/.action_repo.run-containerized-script
       shell: bash
     - name: Run on container
-      uses: ./run
+      uses: ./.github/.action_repo.run-containerized-script/run
       with:
         args: ${{ inputs.args }}
     - name: Unlink the action repository
