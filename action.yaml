@@ -25,7 +25,7 @@ runs:
     - name: Symlink current action repo
       env:
         action_path: ${{ github.action_path }}
-      run: ln -fs ${{ env.action_path }}/.. .github/.action_repo.run-containerized-script
+      run: ln -fs ${{ env.action_path }} .github/.action_repo.run-containerized-script
       shell: bash
     - name: Run on container
       uses: ./.github/.action_repo.run-containerized-script/run
