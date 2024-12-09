@@ -22,7 +22,16 @@ runs:
         docker tag ${{ inputs.image }} containerized_runner
         echo "::endgroup::"
       shell: bash
+    - name: Symlink current action repo
+      env:
+        action_path: ${{ github.action_path }}
+      run: ln -fs ${{ env.action_path }}/.. .github/.action_repo.run-containerized-script
+      shell: bash
     - name: Run on container
-      uses: ./run
+      uses: ./.github/.action_repo.run-containerized-script/run
       with:
         args: ${{ inputs.args }}
+    - name: Unlink the action repository
+      if: always()
+      run: rm -f .github/.action_repo.run-containerized-script
+      shell: bash
