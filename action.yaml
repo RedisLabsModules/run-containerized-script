@@ -1,0 +1,28 @@
+name: Run Containerized Script
+description: |
+  This action provides a way to run commands on a custom image, 
+  while letting Github handle the setup and teardown of the container, as well as any environment variables and mounts. 
+  Useful when you need to run something on a custom image, but do not wish to run the entire workflow with the `container:` directive.
+
+inputs:
+  image:
+    description: "The docker image to use. If the image is stored in a private registry, you may need to authenticate before using this action."
+    required: true
+  args:
+    description: "The arguments to pass to the container. Will be passed to the container using `/bin/bash -c`"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Prepare image
+      run: |
+        echo "::group::Pulling image ${{ inputs.image }} and retagging as 'containerized_runner'"
+        docker pull ${{ inputs.image }}
+        docker tag ${{ inputs.image }} containerized_runner
+        echo "::endgroup::"
+      shell: bash
+    - name: Run on container
+      uses: ./run
+      with:
+        args: ${{ inputs.args }}

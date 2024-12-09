@@ -2,9 +2,13 @@
 
 ## About
 
-A reusable GitHub Action that executes a bash script inside a container with the current working directory (CWD) mounted. This action simplifies workflows by enabling script execution in an isolated containerized environment while maintaining access to the local project files
+A reusable GitHub Action that executes a bash script inside a container with the current working directory (CWD) mounted. 
+This action simplifies workflows by enabling script execution in an isolated containerized environment while maintaining access to the local project files
 
-This allows running [`actions/checkout`](https://github.com/actions/checkout), [`actions/download-artifact`](https://github.com/actions/download-artifact), [`actions/upload-artifact`](https://github.com/actions/upload-artifact), and other actions outside of the container's context.
+This action provides an alternative for using the `container:` directive, which runs an entire job inside a container.
+
+This allows running [`actions/checkout`](https://github.com/actions/checkout), [`actions/download-artifact`](https://github.com/actions/download-artifact), [`actions/upload-artifact`](https://github.com/actions/upload-artifact), and other actions outside of the container's context, 
+avoid conflicts with the container's environment, and allows for a more flexible and modular workflow.
 
 ___
 

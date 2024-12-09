@@ -1,0 +1,15 @@
+name: Run on container
+description: "This action should only be triggered by the wrapping run-containerized-script action."
+inputs:
+  args:
+    description: "The arguments to pass to the container"
+    required: true
+
+runs:
+  using: docker
+  image: containerized_runner
+  args:
+    - /bin/bash
+    - -c
+    - |
+      ${{ inputs.args }}
